@@ -1,0 +1,107 @@
+<svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1000" height="700" fill="#fafafa"/>
+  
+  <!-- Title -->
+  <text x="500" y="40" text-anchor="middle" font-family="Segoe UI, Arial" font-size="22" font-weight="bold" fill="#1a1a1a">Authentication Flow &amp; Token Lifecycle</text>
+  
+  <!-- Actors -->
+  <g transform="translate(100, 80)">
+    <rect width="120" height="40" rx="4" fill="#dd1b16" stroke="#b71c1c" stroke-width="2"/>
+    <text x="60" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="13" font-weight="bold" fill="white">Angular Client</text>
+  </g>
+  
+  <g transform="translate(400, 80)">
+    <rect width="140" height="40" rx="4" fill="#1976d2" stroke="#0d47a1" stroke-width="2"/>
+    <text x="70" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="13" font-weight="bold" fill="white">Express Server</text>
+  </g>
+  
+  <g transform="translate(750, 80)">
+    <rect width="140" height="40" rx="4" fill="#336791" stroke="#0d47a1" stroke-width="2"/>
+    <text x="70" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="13" font-weight="bold" fill="white">PostgreSQL</text>
+  </g>
+  
+  <!-- Lifelines -->
+  <line x1="160" y1="120" x2="160" y2="650" stroke="#ddd" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="470" y1="120" x2="470" y2="650" stroke="#ddd" stroke-width="2" stroke-dasharray="5,5"/>
+  <line x1="820" y1="120" x2="820" y2="650" stroke="#ddd" stroke-width="2" stroke-dasharray="5,5"/>
+  
+  <!-- Flow 1: Login -->
+  <text x="50" y="150" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#666">1. Login</text>
+  
+  <line x1="160" y1="170" x2="470" y2="170" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="250" y="165" font-family="Segoe UI, Arial" font-size="11" fill="#333">POST /auth/login</text>
+  <text x="250" y="180" font-family="Segoe UI, Arial" font-size="10" fill="#666">{email, password}</text>
+  
+  <rect x="450" y="190" width="40" height="60" rx="2" fill="#bbdefb" stroke="#1976d2"/>
+  <line x1="470" y1="200" x2="820" y2="200" stroke="#336791" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="600" y="195" font-family="Segoe UI, Arial" font-size="10" fill="#333">bcrypt.compare()</text>
+  
+  <line x1="820" y1="220" x2="470" y2="220" stroke="#336791" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="600" y="235" font-family="Segoe UI, Arial" font-size="10" fill="#333">user validated</text>
+  
+  <rect x="450" y="240" width="40" height="40" rx="2" fill="#bbdefb" stroke="#1976d2"/>
+  <text x="520" y="265" font-family="Segoe UI, Arial" font-size="10" fill="#d32f2f">Gen JWT (15m)</text>
+  <text x="520" y="280" font-family="Segoe UI, Arial" font-size="10" fill="#d32f2f">Gen Refresh Token</text>
+  
+  <line x1="470" y1="290" x2="820" y2="290" stroke="#336791" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="600" y="285" font-family="Segoe UI, Arial" font-size="10" fill="#333">Store SHA256(hash)</text>
+  
+  <line x1="470" y1="330" x2="160" y2="330" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="250" y="325" font-family="Segoe UI, Arial" font-size="11" fill="#333">200 OK</text>
+  <text x="250" y="340" font-family="Segoe UI, Arial" font-size="10" fill="#d32f2f">Set-Cookie: refreshToken</text>
+  <text x="250" y="355" font-family="Segoe UI, Arial" font-size="10" fill="#1976d2">{ accessToken: "..." }</text>
+  
+  <!-- Flow 2: Protected Request -->
+  <text x="50" y="400" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#666">2. Protected Request (No DB hit)</text>
+  
+  <line x1="160" y1="420" x2="470" y2="420" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="250" y="415" font-family="Segoe UI, Arial" font-size="11" fill="#333">GET /api/patients</text>
+  <text x="250" y="430" font-family="Segoe UI, Arial" font-size="10" fill="#d32f2f">Authorization: Bearer &lt;access&gt;</text>
+  
+  <rect x="450" y="440" width="40" height="30" rx="2" fill="#c8e6c9" stroke="#4caf50"/>
+  <text x="520" y="460" font-family="Segoe UI, Arial" font-size="10" fill="#2e7d32">JWT.verify() locally</text>
+  
+  <line x1="470" y1="480" x2="160" y2="480" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="250" y="475" font-family="Segoe UI, Arial" font-size="11" fill="#333">200 OK + data</text>
+  
+  <!-- Flow 3: Token Refresh -->
+  <text x="50" y="520" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#666">3. Refresh (Access Expired)</text>
+  
+  <line x1="160" y1="540" x2="470" y2="540" stroke="#ff9800" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="250" y="535" font-family="Segoe UI, Arial" font-size="11" fill="#333">POST /auth/refresh</text>
+  <text x="250" y="550" font-family="Segoe UI, Arial" font-size="10" fill="#ff6f00">Cookie: refreshToken</text>
+  
+  <line x1="470" y1="560" x2="820" y2="560" stroke="#336791" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="600" y="555" font-family="Segoe UI, Arial" font-size="10" fill="#333">Lookup hash, check expiry</text>
+  
+  <line x1="820" y1="580" x2="470" y2="580" stroke="#336791" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="600" y="595" font-family="Segoe UI, Arial" font-size="10" fill="#333">Valid → rotate (revoke old)</text>
+  
+  <line x1="470" y1="610" x2="160" y2="610" stroke="#ff9800" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="250" y="605" font-family="Segoe UI, Arial" font-size="11" fill="#333">New access + refresh</text>
+  
+  <!-- Flow 4: Logout -->
+  <text x="700" y="400" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#666">4. Logout</text>
+  
+  <line x1="160" y1="630" x2="470" y2="630" stroke="#666" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="250" y="645" font-family="Segoe UI, Arial" font-size="11" fill="#333">POST /auth/logout</text>
+  
+  <line x1="470" y1="630" x2="820" y2="630" stroke="#336791" stroke-width="2" marker-end="url(#arrowseq)"/>
+  <text x="600" y="645" font-family="Segoe UI, Arial" font-size="10" fill="#333">Revoke all tokens</text>
+  
+  <!-- Legend -->
+  <g transform="translate(700, 480)">
+    <rect width="270" height="100" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+    <text x="10" y="25" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#333">Security Features:</text>
+    <text x="10" y="45" font-family="Segoe UI, Arial" font-size="11" fill="#666">• Refresh token: HTTP-only cookie</text>
+    <text x="10" y="62" font-family="Segoe UI, Arial" font-size="11" fill="#666">• Access token: Memory only (15m)</text>
+    <text x="10" y="79" font-family="Segoe UI, Arial" font-size="11" fill="#666">• Rotation: Old token revoked on use</text>
+    <text x="10" y="96" font-family="Segoe UI, Arial" font-size="11" fill="#666">• SHA-256: Tokens hashed in DB</text>
+  </g>
+  
+  <defs>
+    <marker id="arrowseq" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+</svg>

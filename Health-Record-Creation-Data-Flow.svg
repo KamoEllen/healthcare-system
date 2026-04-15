@@ -1,0 +1,155 @@
+<svg viewBox="0 0 900 800" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="800" fill="#fafafa"/>
+  
+  <!-- Title -->
+  <text x="450" y="40" text-anchor="middle" font-family="Segoe UI, Arial" font-size="22" font-weight="bold" fill="#1a1a1a">Data Flow: Health Record Creation</text>
+  <text x="450" y="65" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" fill="#666">End-to-end request lifecycle with Transaction Boundary</text>
+  
+  <!-- Client -->
+  <g transform="translate(50, 100)">
+    <rect width="140" height="60" rx="6" fill="#dd1b16" stroke="#b71c1c" stroke-width="2"/>
+    <text x="70" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="13" font-weight="bold" fill="white">Doctor Client</text>
+    <text x="70" y="45" text-anchor="middle" font-family="Segoe UI, Arial" font-size="11" fill="#ffcdd2">Angular SPA</text>
+  </g>
+  
+  <!-- Request Details -->
+  <g transform="translate(50, 170)">
+    <rect width="140" height="80" rx="4" fill="#ffebee" stroke="#d32f2f" stroke-width="1"/>
+    <text x="70" y="20" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10" font-weight="bold" fill="#d32f2f">POST /health-records</text>
+    <text x="10" y="40" font-family="Segoe UI, Arial" font-size="9" fill="#333">{</text>
+    <text x="20" y="55" font-family="Segoe UI, Arial" font-size="9" fill="#333">patient_id,</text>
+    <text x="20" y="70" font-family="Segoe UI, Arial" font-size="9" fill="#333">diagnosis,</text>
+    <text x="20" y="85" font-family="Segoe UI, Arial" font-size="9" fill="#333">prescription</text>
+    <text x="10" y="95" font-family="Segoe UI, Arial" font-size="9" fill="#333">}</text>
+  </g>
+  
+  <!-- Arrow -->
+  <path d="M 190 140 L 250 140" stroke="#666" stroke-width="2" marker-end="url(#arrowdf)"/>
+  
+  <!-- Validation Layer -->
+  <g transform="translate(260, 100)">
+    <rect width="120" height="60" rx="6" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+    <text x="60" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#e65100">1. Zod</text>
+    <text x="60" y="45" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10" fill="#666">Validation</text>
+  </g>
+  <text x="320" y="180" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#666">Schema check</text>
+  <text x="320" y="195" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#666">Strip unknown fields</text>
+  
+  <path d="M 380 130 L 420 130" stroke="#666" stroke-width="2" marker-end="url(#arrowdf)"/>
+  
+  <!-- Auth Layer -->
+  <g transform="translate(430, 100)">
+    <rect width="120" height="60" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+    <text x="60" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#1565c0">2. JWT Auth</text>
+    <text x="60" y="45" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10" fill="#666">Verify token</text>
+  </g>
+  <text x="490" y="180" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#666">Verify signature</text>
+  <text x="490" y="195" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#666">Attach req.user</text>
+  
+  <path d="M 550 130 L 590 130" stroke="#666" stroke-width="2" marker-end="url(#arrowdf)"/>
+  
+  <!-- Authorization -->
+  <g transform="translate(600, 100)">
+    <rect width="120" height="60" rx="6" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
+    <text x="60" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#7b1fa2">3. RBAC</text>
+    <text x="60" y="45" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10" fill="#666">authorize('doctor')</text>
+  </g>
+  <text x="660" y="180" text-anchor="middle" font-family="Segoe UI, Arial" font-size="9" fill="#666">Role check</text>
+  
+  <path d="M 720 130 L 760 130" stroke="#666" stroke-width="2" marker-end="url(#arrowdf)"/>
+  
+  <!-- Controller -->
+  <g transform="translate(770, 100)">
+    <rect width="100" height="60" rx="6" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+    <text x="50" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#2e7d32">4. Controller</text>
+    <text x="50" y="45" text-anchor="middle" font-family="Segoe UI, Arial" font-size="10" fill="#666">Extract DTO</text>
+  </g>
+  
+  <!-- Down to Service -->
+  <path d="M 820 160 L 820 220 L 500 220 L 500 250" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowdf)" fill="none"/>
+  
+  <!-- Service Layer -->
+  <g transform="translate(350, 260)">
+    <rect width="300" height="100" rx="6" fill="#c8e6c9" stroke="#4caf50" stroke-width="3"/>
+    <text x="150" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" font-weight="bold" fill="#1b5e20">5. HealthRecordService</text>
+    <text x="10" y="50" font-family="Segoe UI, Arial" font-size="11" fill="#333">• Find doctor profile by userId</text>
+    <text x="10" y="70" font-family="Segoe UI, Arial" font-size="11" fill="#333">• Verify patient exists</text>
+    <text x="10" y="90" font-family="Segoe UI, Arial" font-size="11" fill="#333">• Check 24h edit window rule</text>
+  </g>
+  
+  <!-- Down to Repo -->
+  <path d="M 500 360 L 500 400" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowdf)"/>
+  
+  <!-- Repository Layer -->
+  <g transform="translate(350, 410)">
+    <rect width="300" height="80" rx="6" fill="#fff9c4" stroke="#fbc02d" stroke-width="3"/>
+    <text x="150" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" font-weight="bold" fill="#f57f17">6. Repository</text>
+    <text x="150" y="50" text-anchor="middle" font-family="Segoe UI, Arial" font-size="12" fill="#333" font-weight="bold">BEGIN TRANSACTION</text>
+    <text x="150" y="70" text-anchor="middle" font-family="Segoe UI, Arial" font-size="11" fill="#666">PoolClient acquired</text>
+  </g>
+  
+  <!-- Database Operations -->
+  <g transform="translate(100, 520)">
+    <rect width="300" height="120" rx="6" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+    <text x="150" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="13" font-weight="bold" fill="#b71c1c">7a. INSERT health_records</text>
+    <text x="10" y="50" font-family="Segoe UI, Arial" font-size="10" fill="#333">INSERT INTO health_records</text>
+    <text x="10" y="68" font-family="Segoe UI, Arial" font-size="10" fill="#666">(patient_id, doctor_id, diagnosis...)</text>
+    <text x="10" y="86" font-family="Segoe UI, Arial" font-size="10" fill="#666">VALUES ($1, $2, $3...)</text>
+    <text x="10" y="105" font-family="Segoe UI, Arial" font-size="10" fill="#d32f2f" font-weight="bold">RETURNING id</text>
+  </g>
+  
+  <g transform="translate(500, 520)">
+    <rect width="300" height="120" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+    <text x="150" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="13" font-weight="bold" fill="#0d47a1">7b. INSERT audit_logs</text>
+    <text x="10" y="50" font-family="Segoe UI, Arial" font-size="10" fill="#333">INSERT INTO audit_logs</text>
+    <text x="10" y="68" font-family="Segoe UI, Arial" font-size="10" fill="#666">(user_id, action, resource,</text>
+    <text x="10" y="86" font-family="Segoe UI, Arial" font-size="10" fill="#666">resource_id, timestamp)</text>
+    <text x="10" y="105" font-family="Segoe UI, Arial" font-size="10" fill="#1976d2" font-weight="bold">Atomic with 7a</text>
+  </g>
+  
+  <!-- Arrows to DB -->
+  <path d="M 500 490 L 250 520" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrowdf)"/>
+  <path d="M 500 490 L 650 520" stroke="#1976d2" stroke-width="2" marker-end="url(#arrowdf)"/>
+  
+  <!-- Commit -->
+  <g transform="translate(350, 660)">
+    <rect width="300" height="50" rx="6" fill="#c8e6c9" stroke="#4caf50" stroke-width="3"/>
+    <text x="150" y="32" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" font-weight="bold" fill="#1b5e20">COMMIT (or ROLLBACK on error)</text>
+  </g>
+  
+  <path d="M 250 640 L 450 660" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowdf)" stroke-dasharray="5,5"/>
+  <path d="M 650 640 L 500 660" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowdf)" stroke-dasharray="5,5"/>
+  
+  <!-- Response -->
+  <g transform="translate(700, 660)">
+    <rect width="160" height="50" rx="6" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+    <text x="80" y="20" text-anchor="middle" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#2e7d32">8. Response</text>
+    <text x="80" y="38" text-anchor="middle" font-family="Segoe UI, Arial" font-size="11" fill="#333">201 Created + Record</text>
+  </g>
+  
+  <path d="M 650 685 L 700 685" stroke="#4caf50" stroke-width="2" marker-end="url(#arrowdf)"/>
+  
+  <!-- Error Handling Box -->
+  <g transform="translate(50, 300)">
+    <rect width="200" height="150" rx="6" fill="#ffebee" stroke="#d32f2f" stroke-width="1" opacity="0.9"/>
+    <text x="100" y="25" text-anchor="middle" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#b71c1c">Error Handling</text>
+    <text x="10" y="50" font-family="Segoe UI, Arial" font-size="10" fill="#333">• Validation fail → 400</text>
+    <text x="10" y="70" font-family="Segoe UI, Arial" font-size="10" fill="#333">• Auth fail → 401</text>
+    <text x="10" y="90" font-family="Segoe UI, Arial" font-size="10" fill="#333">• Not doctor → 403</text>
+    <text x="10" y="110" font-family="Segoe UI, Arial" font-size="10" fill="#333">• Patient not found → 404</text>
+    <text x="10" y="130" font-family="Segoe UI, Arial" font-size="10" fill="#333">• DB Error → ROLLBACK → 500</text>
+  </g>
+  
+  <!-- Transaction Boundary Note -->
+  <g transform="translate(50, 750)">
+    <rect width="800" height="40" rx="6" fill="#fff8e1" stroke="#ffc107" stroke-width="1"/>
+    <text x="10" y="25" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#ff6f00">Critical:</text>
+    <text x="70" y="25" font-family="Segoe UI, Arial" font-size="11" fill="#333">Both INSERTs happen atomically. If audit_log fails, health_record is rolled back. No partial writes allowed.</text>
+  </g>
+  
+  <defs>
+    <marker id="arrowdf" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#666"/>
+    </marker>
+  </defs>
+</svg>

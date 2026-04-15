@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: healthcare-api-config
+  namespace: default
+data:
+  NODE_ENV: "production"
+  PORT: "3000"
+  JWT_EXPIRES_IN: "15m"
+  REFRESH_TOKEN_EXPIRES_IN: "7d"
+  EMAIL_PROVIDER: "ses"
+  EMAIL_FROM: "noreply@healthcare.example.com"
+  CORS_ORIGIN: "https://healthcare.example.com"
+  RATE_LIMIT_AUTH_MAX: "10"
+  RATE_LIMIT_API_MAX: "100"
+  AWS_REGION: "us-east-1"

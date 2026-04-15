@@ -1,0 +1,173 @@
+<svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="800" fill="#fafafa"/>
+  
+  <!-- Title -->
+  <text x="600" y="40" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="24" font-weight="bold" fill="#1a1a1a">Healthcare Database Schema</text>
+  <text x="600" y="65" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="14" fill="#666">Entity Relationship Diagram — 9 Tables with Cardinalities</text>
+  
+  <!-- Users Table -->
+  <g transform="translate(500, 100)">
+    <rect width="200" height="160" rx="6" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+    <rect width="200" height="35" rx="6" fill="#ff9800"/>
+    <text x="100" y="23" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" font-weight="bold" fill="white">users</text>
+    <text x="10" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#e65100" font-weight="bold">PK</text>
+    <text x="30" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#333">id (UUID)</text>
+    <text x="10" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#666">UQ</text>
+    <text x="30" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#333">email</text>
+    <text x="30" y="95" font-family="Segoe UI, Arial" font-size="11" fill="#333">password_hash</text>
+    <text x="30" y="115" font-family="Segoe UI, Arial" font-size="11" fill="#333">role (enum)</text>
+    <text x="30" y="135" font-family="Segoe UI, Arial" font-size="11" fill="#333">email_verified</text>
+    <text x="30" y="155" font-family="Segoe UI, Arial" font-size="11" fill="#666">deleted_at (soft)</text>
+  </g>
+  
+  <!-- Patients Table -->
+  <g transform="translate(150, 350)">
+    <rect width="180" height="120" rx="6" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+    <rect width="180" height="35" rx="6" fill="#1976d2"/>
+    <text x="90" y="23" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" font-weight="bold" fill="white">patients</text>
+    <text x="10" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#0d47a1" font-weight="bold">PK</text>
+    <text x="30" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#333">id</text>
+    <text x="10" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#d32f2f" font-weight="bold">FK</text>
+    <text x="30" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#333">user_id → users</text>
+    <text x="30" y="95" font-family="Segoe UI, Arial" font-size="11" fill="#333">date_of_birth</text>
+    <text x="30" y="115" font-family="Segoe UI, Arial" font-size="11" fill="#333">blood_type</text>
+  </g>
+  
+  <!-- Doctors Table -->
+  <g transform="translate(870, 350)">
+    <rect width="180" height="120" rx="6" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+    <rect width="180" height="35" rx="6" fill="#4caf50"/>
+    <text x="90" y="23" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" font-weight="bold" fill="white">doctors</text>
+    <text x="10" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#1b5e20" font-weight="bold">PK</text>
+    <text x="30" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#333">id</text>
+    <text x="10" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#d32f2f" font-weight="bold">FK</text>
+    <text x="30" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#333">user_id → users</text>
+    <text x="30" y="95" font-family="Segoe UI, Arial" font-size="11" fill="#333">specialisation</text>
+    <text x="30" y="115" font-family="Segoe UI, Arial" font-size="11" fill="#333">licence_number (UQ)</text>
+  </g>
+  
+  <!-- Appointments Table -->
+  <g transform="translate(350, 550)">
+    <rect width="200" height="140" rx="6" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
+    <rect width="200" height="35" rx="6" fill="#9c27b0"/>
+    <text x="100" y="23" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" font-weight="bold" fill="white">appointments</text>
+    <text x="10" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#4a148c" font-weight="bold">PK</text>
+    <text x="30" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#333">id</text>
+    <text x="10" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#d32f2f" font-weight="bold">FK</text>
+    <text x="30" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#333">patient_id</text>
+    <text x="10" y="95" font-family="Segoe UI, Arial" font-size="11" fill="#d32f2f" font-weight="bold">FK</text>
+    <text x="30" y="95" font-family="Segoe UI, Arial" font-size="11" fill="#333">doctor_id</text>
+    <text x="30" y="115" font-family="Segoe UI, Arial" font-size="11" fill="#333">scheduled_at</text>
+    <text x="30" y="135" font-family="Segoe UI, Arial" font-size="11" fill="#333">status (enum)</text>
+  </g>
+  
+  <!-- Health Records Table -->
+  <g transform="translate(650, 550)">
+    <rect width="200" height="140" rx="6" fill="#ffebee" stroke="#d32f2f" stroke-width="2"/>
+    <rect width="200" height="35" rx="6" fill="#d32f2f"/>
+    <text x="100" y="23" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" font-weight="bold" fill="white">health_records</text>
+    <text x="10" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#b71c1c" font-weight="bold">PK</text>
+    <text x="30" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#333">id</text>
+    <text x="10" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#d32f2f" font-weight="bold">FK</text>
+    <text x="30" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#333">patient_id</text>
+    <text x="10" y="95" font-family="Segoe UI, Arial" font-size="11" fill="#d32f2f" font-weight="bold">FK</text>
+    <text x="30" y="95" font-family="Segoe UI, Arial" font-size="11" fill="#333">doctor_id</text>
+    <text x="30" y="115" font-family="Segoe UI, Arial" font-size="11" fill="#333">diagnosis</text>
+    <text x="30" y="135" font-family="Segoe UI, Arial" font-size="11" fill="#333">recorded_at</text>
+  </g>
+  
+  <!-- Audit Logs Table -->
+  <g transform="translate(50, 150)">
+    <rect width="180" height="130" rx="6" fill="#fff8e1" stroke="#ffc107" stroke-width="2"/>
+    <rect width="180" height="35" rx="6" fill="#ffc107"/>
+    <text x="90" y="23" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" font-weight="bold" fill="white">audit_logs</text>
+    <text x="10" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#f57f17" font-weight="bold">PK</text>
+    <text x="30" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#333">id</text>
+    <text x="10" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#d32f2f" font-weight="bold">FK</text>
+    <text x="30" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#333">user_id</text>
+    <text x="30" y="95" font-family="Segoe UI, Arial" font-size="11" fill="#333">action, resource</text>
+    <text x="30" y="115" font-family="Segoe UI, Arial" font-size="11" fill="#333">timestamp</text>
+  </g>
+  
+  <!-- Token Tables (Grouped) -->
+  <g transform="translate(970, 150)">
+    <rect width="200" height="160" rx="6" fill="#eceff1" stroke="#607d8b" stroke-width="2"/>
+    <rect width="200" height="35" rx="6" fill="#607d8b"/>
+    <text x="100" y="23" text-anchor="middle" font-family="Segoe UI, Arial" font-size="14" font-weight="bold" fill="white">Token Tables</text>
+    <text x="10" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#455a64" font-weight="bold">3 Tables:</text>
+    <text x="10" y="75" font-family="Segoe UI, Arial" font-size="11" fill="#333">• refresh_tokens</text>
+    <text x="10" y="95" font-family="Segoe UI, Arial" font-size="11" fill="#333">• email_verification</text>
+    <text x="10" y="115" font-family="Segoe UI, Arial" font-size="11" fill="#333">• password_reset</text>
+    <text x="10" y="140" font-family="Segoe UI, Arial" font-size="10" fill="#666">All: token_hash,</text>
+    <text x="10" y="155" font-family="Segoe UI, Arial" font-size="10" fill="#666">expires_at, user_id (FK)</text>
+  </g>
+  
+  <!-- Relationships -->
+  <!-- Users to Patients (1:1) -->
+  <line x1="550" y1="260" x2="330" y2="350" stroke="#666" stroke-width="2" marker-end="url(#arrowc)" marker-start="url(#one)"/>
+  <line x1="550" y1="260" x2="330" y2="350" stroke="#666" stroke-width="2" marker-start="url(#one)"/>
+  <text x="400" y="290" font-family="Segoe UI, Arial" font-size="12" fill="#666" font-weight="bold">1:1</text>
+  
+  <!-- Users to Doctors (1:1) -->
+  <line x1="650" y1="260" x2="870" y2="350" stroke="#666" stroke-width="2" marker-end="url(#arrowc)" marker-start="url(#one)"/>
+  <text x="780" y="290" font-family="Segoe UI, Arial" font-size="12" fill="#666" font-weight="bold">1:1</text>
+  
+  <!-- Users to Audit Logs (1:N) -->
+  <line x1="500" y1="180" x2="230" y2="180" stroke="#666" stroke-width="2" marker-end="url(#arrowc)" marker-start="url(#crow)"/>
+  <text x="360" y="170" font-family="Segoe UI, Arial" font-size="12" fill="#666" font-weight="bold">1:N</text>
+  
+  <!-- Users to Tokens (1:N) -->
+  <line x1="700" y1="180" x2="970" y2="180" stroke="#666" stroke-width="2" marker-end="url(#arrowc)" marker-start="url(#crow)"/>
+  <text x="820" y="170" font-family="Segoe UI, Arial" font-size="12" fill="#666" font-weight="bold">1:N</text>
+  
+  <!-- Patients to Appointments (1:N) -->
+  <line x1="330" y1="470" x2="400" y2="550" stroke="#666" stroke-width="2" marker-end="url(#arrowc)" marker-start="url(#crow)"/>
+  <text x="340" y="520" font-family="Segoe UI, Arial" font-size="12" fill="#666" font-weight="bold">1:N</text>
+  
+  <!-- Doctors to Appointments (1:N) -->
+  <line x1="870" y1="470" x2="550" y2="580" stroke="#666" stroke-width="2" marker-end="url(#arrowc)" marker-start="url(#crow)"/>
+  <text x="750" y="520" font-family="Segoe UI, Arial" font-size="12" fill="#666" font-weight="bold">1:N</text>
+  
+  <!-- Patients to Health Records (1:N) -->
+  <line x1="330" y1="410" x2="700" y2="580" stroke="#666" stroke-width="2" marker-end="url(#arrowc)" marker-start="url(#crow)" stroke-dasharray="5,5"/>
+  <text x="480" y="510" font-family="Segoe UI, Arial" font-size="12" fill="#666" font-weight="bold">1:N</text>
+  
+  <!-- Doctors to Health Records (1:N) -->
+  <line x1="960" y1="470" x2="850" y2="580" stroke="#666" stroke-width="2" marker-end="url(#arrowc)" marker-start="url(#crow)" stroke-dasharray="5,5"/>
+  <text x="930" y="540" font-family="Segoe UI, Arial" font-size="12" fill="#666" font-weight="bold">1:N</text>
+  
+  <!-- Legend -->
+  <g transform="translate(50, 720)">
+    <rect width="400" height="60" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+    <text x="10" y="20" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#333">Legend:</text>
+    <line x1="10" y1="35" x2="30" y2="35" stroke="#666" stroke-width="2" marker-end="url(#arrowc)" marker-start="url(#one)"/>
+    <text x="40" y="40" font-family="Segoe UI, Arial" font-size="11" fill="#666">1:1 Relationship</text>
+    <line x1="150" y1="35" x2="170" y2="35" stroke="#666" stroke-width="2" marker-end="url(#arrowc)" marker-start="url(#crow)"/>
+    <text x="180" y="40" font-family="Segoe UI, Arial" font-size="11" fill="#666">1:N Relationship</text>
+    <text x="10" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#d32f2f" font-weight="bold">FK</text>
+    <text x="35" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#666">= Foreign Key</text>
+    <text x="120" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#1976d2" font-weight="bold">PK</text>
+    <text x="145" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#666">= Primary Key</text>
+  </g>
+  
+  <!-- Indexes Note -->
+  <g transform="translate(500, 720)">
+    <rect width="650" height="60" rx="6" fill="#e8f5e9" stroke="#4caf50" stroke-width="1"/>
+    <text x="10" y="20" font-family="Segoe UI, Arial" font-size="12" font-weight="bold" fill="#2e7d32">Key Indexes:</text>
+    <text x="10" y="40" font-family="Segoe UI, Arial" font-size="11" fill="#333">• idx_appointments_doctor_scheduled (doctor_id, scheduled_at) — Slot availability checks</text>
+    <text x="10" y="55" font-family="Segoe UI, Arial" font-size="11" fill="#333">• idx_users_deleted_at — Soft delete filtering</text>
+  </g>
+  
+  <defs>
+    <marker id="arrowc" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#666"/>
+    </marker>
+    <marker id="one" markerWidth="20" markerHeight="20" refX="10" refY="10" orient="auto">
+      <text x="5" y="15" font-family="Arial" font-size="12" fill="#666" font-weight="bold">1</text>
+    </marker>
+    <marker id="crow" markerWidth="20" markerHeight="20" refX="0" refY="10" orient="auto">
+      <path d="M0,0 L10,5 L0,10 M10,0 L10,10" fill="none" stroke="#666" stroke-width="2"/>
+    </marker>
+  </defs>
+</svg>
